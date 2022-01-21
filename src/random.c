@@ -28,10 +28,16 @@
 #if defined(__linux__) && !defined(__ANDROID__) && (!defined(__GLIBC__) || __GLIBC__ > 2 || __GLIBC_MINOR__ >= 25)
 
 #include <errno.h>
+#include <syscall.h>
 #include <sys/random.h>
 
+ssize_t _getrandom(void *buf, size_t buflen, unsigned int flags) {
+        int n = syscall(SYS_getrandom, buf, buflen, flags);
+        return (ssize_t)n;
+}
+
 static int random_bytes(void *buf, size_t size) {
-	ssize_t ret = getrandom(buf, size, 0);
+	ssize_t ret = _getrandom(buf, size, 0);
 	if (ret < 0) {
 		JLOG_WARN("getrandom failed, errno=%d", errno);
 		return -1;
