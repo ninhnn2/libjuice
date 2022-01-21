@@ -1,3 +1,8 @@
+# Cross-compile with compiler for yi-hack allwinner camera
+
+source setup_cross.sh
+make -j8
+
 # libjuice - UDP Interactive Connectivity Establishment
 
 [![Build and test](https://github.com/paullouisageneau/libjuice/actions/workflows/build.yml/badge.svg)](https://github.com/paullouisageneau/libjuice/actions/workflows/build.yml)
